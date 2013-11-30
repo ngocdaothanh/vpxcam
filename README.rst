@@ -5,9 +5,9 @@
 Dependencies
 ------------
 
-* opencv: Capture frames from camera
-* libvpx: Encode frames
-* boost: Streaming server
+* opencv: Capture frames from camera, display frames, convert RGB <-> YV12
+* libvpx: Encode/decode frames; libvpx only works with YV12, not RGB
+* boost: Server and client
 
 On Mac:
 
