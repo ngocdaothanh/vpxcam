@@ -1,3 +1,7 @@
+::
+
+  camera -> capture -> encode -> server ---> client -> decode -> display
+
 Dependencies
 ------------
 
