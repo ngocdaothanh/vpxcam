@@ -5,9 +5,6 @@ Dependencies
 * libvpx: Encode frames
 * boost: Streaming server
 
-Install dependencies
-~~~~~~~~~~~~~~~~~~~~
-
 On Mac:
 
 ::
@@ -15,3 +12,15 @@ On Mac:
   brew install opencv
   brew install libvpx
   brew install boost
+
+Build and run
+-------------
+
+::
+
+  make
+
+References
+----------
+
+http://www.webmproject.org/docs/vp8-sdk/samples.html
