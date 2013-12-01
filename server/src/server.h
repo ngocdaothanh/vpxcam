@@ -25,6 +25,12 @@ public:
     io_service->run();
   }
 
+  bool has_new_client_connected() {
+    bool ret = new_client_connected;
+    if (ret) new_client_connected = false;
+    return ret;
+  }
+
   void handle_encoded(char* encoded, int size) {
     mtx.lock();
 
@@ -60,6 +66,7 @@ private:
 
   void handle_accept(tcp::socket* socket, const boost::system::error_code& error) {
     if (!error) {
+      new_client_connected = true;
       boost::asio::async_write(
         *socket,
         boost::asio::buffer(resolution, 2 * 4),
@@ -94,5 +101,6 @@ private:
   char cmd;
 
   std::vector<tcp::socket*> clients;
+  bool new_client_connected;
   boost::mutex mtx;
 };

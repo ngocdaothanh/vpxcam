@@ -18,7 +18,8 @@ void cam_loop(int width, int height, server* s) {
     if (!cam_yv12_frame(yv12)) continue;
 
     int size;
-    vpx_encode(yv12, encoded, &size);
+    bool force_key_frame = s->has_new_client_connected();
+    vpx_encode(yv12, encoded, &size, force_key_frame);
     if (!size) continue;
 
     s->handle_encoded(encoded, size);
@@ -27,16 +28,13 @@ void cam_loop(int width, int height, server* s) {
 }
 
 int main(int argc, char* argv[]) {
-  int cam_id, port, force_key_frame;
-
-  if (argc != 3 && argc != 4) {
-    printf("Usage: vpxcams <cam_id> <port> [force_key_frame]\n");
+  if (argc != 3) {
+    printf("Usage: vpxcams <cam_id> <port>\n");
     return -1;
   }
 
-  cam_id          = atoi(argv[1]);
-  port            = atoi(argv[2]);
-  force_key_frame = (argc == 3) ? 0 : atoi(argv[3]);
+  int cam_id = atoi(argv[1]);
+  int port   = atoi(argv[2]);
 
   if (!cam_open(cam_id, true)) {
     printf("Could not open camera: %d\n", cam_id);
@@ -46,7 +44,7 @@ int main(int argc, char* argv[]) {
   int width  = cam_width();
   int height = cam_height();
 
-  vpx_init(width, height, force_key_frame);
+  vpx_init(width, height);
 
   server* s = new server(width, height, port);
   boost::thread server_thread(&server::run, s);

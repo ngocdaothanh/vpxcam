@@ -31,13 +31,13 @@ Server
 
 ::
 
-  vpxcams <cam_id> <port> [force_key_frame]
+  vpxcams <cam_id> <port>
 
-Ex: force a key frame every 5 frames (lower means shorter initial delay at client side)
+Ex:
 
 ::
 
-  vpxcams 0 9000 5
+  vpxcams 0 9000
 
 Client
 ~~~~~~

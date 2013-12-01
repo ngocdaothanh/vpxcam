@@ -10,12 +10,9 @@
 
 static vpx_codec_ctx_t codec;
 static vpx_image_t     raw;
-static int             force_key_frame;
 static int             frame_cnt = 0;
 
-bool vpx_init(int width, int height, int _force_key_frame) {
-  force_key_frame = _force_key_frame;
-
+bool vpx_init(int width, int height) {
   vpx_codec_iface_t* interface = vpx_codec_vp8_cx();
   printf("Using %s\n", vpx_codec_iface_name(interface));
 
@@ -46,10 +43,10 @@ bool vpx_init(int width, int height, int _force_key_frame) {
   return true;
 }
 
-void vpx_encode(const char* yv12_frame, char* encoded, int* size) {
+void vpx_encode(const char* yv12_frame, char* encoded, int* size, bool force_key_frame) {
   *size = 0;
 
-  int flags = (force_key_frame > 0 && frame_cnt % force_key_frame == 0) ? VPX_EFLAG_FORCE_KF : 0;
+  int flags = force_key_frame ? VPX_EFLAG_FORCE_KF : 0;
 
   raw.planes[0] = (unsigned char *) yv12_frame;
   if (vpx_codec_encode(&codec, &raw, frame_cnt, 1, flags, VPX_DL_REALTIME)) {
