@@ -46,11 +46,7 @@ int main(int argc, char* argv[]) {
     }
 
     tcp_read(buffer, frame_size);
-    if (!vpx_decode(buffer, frame_size, yv12)) {
-      printf("Could not decode frame, frame size: %d\n", frame_size);
-    }
-
-    display_update(yv12);
+    if (vpx_decode(buffer, frame_size, yv12)) display_update(yv12);
   }
 
   vpx_cleanup();

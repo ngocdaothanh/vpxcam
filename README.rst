@@ -26,6 +26,32 @@ Build and run
 
   make
 
+Server
+~~~~~~
+
+::
+
+  vpxcams <cam_id> <port> [force_key_frame]
+
+Ex: force a key frame every 5 frames (lower means shorter initial delay at client side)
+
+::
+
+  vpxcams 0 9000 5
+
+Client
+~~~~~~
+
+::
+
+  vpxcamc <host> <port>
+
+Ex:
+
+::
+
+  vpxcamc localhost 9000
+
 Network protocol
 ----------------
 

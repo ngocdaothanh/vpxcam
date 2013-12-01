@@ -26,10 +26,17 @@ void cam_loop(int width, int height, server* s) {
   }
 }
 
-int main() {
-  int cam_id = 0;
-  int force_key_frame = 10;
-  int port = 9000;
+int main(int argc, char* argv[]) {
+  int cam_id, port, force_key_frame;
+
+  if (argc != 3 && argc != 4) {
+    printf("Usage: vpxcams <cam_id> <port> [force_key_frame]\n");
+    return -1;
+  }
+
+  cam_id          = atoi(argv[1]);
+  port            = atoi(argv[2]);
+  force_key_frame = (argc == 3) ? 0 : atoi(argv[3]);
 
   if (!cam_open(cam_id, true)) {
     printf("Could not open camera: %d\n", cam_id);

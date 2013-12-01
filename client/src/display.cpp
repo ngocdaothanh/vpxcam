@@ -4,6 +4,8 @@
 
 using namespace cv;
 
+#define PREVIEW_WINDOW_TITLE "client"
+
 typedef Vec<uchar, 1> Vec1b;
 
 static Mat* yv12;
@@ -24,7 +26,7 @@ bool display_init(int width, int height) {
   int cols = width;
   yv12     = new Mat(rows, cols, CV_8UC1);
 
-  namedWindow("video", 1);
+  namedWindow(PREVIEW_WINDOW_TITLE, 1);
   return true;
 }
 
@@ -32,8 +34,8 @@ bool display_update(const char* yv12_frame) {
   bytes_to_mat(yv12_frame, *yv12);
   cvtColor(*yv12, rgb, CV_YUV2RGB_YV12, 3);
 
-  //imshow("video", rgb);
-  imshow("video", *yv12);
+  imshow(PREVIEW_WINDOW_TITLE, rgb);
+  //imshow(PREVIEW_WINDOW_TITLE, *yv12);
 
   waitKey(1);
   return true;

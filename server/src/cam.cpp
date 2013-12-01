@@ -4,7 +4,7 @@
 
 using namespace cv;
 
-#define PREVIEW_WINDOW_TITLE "preview"
+#define PREVIEW_WINDOW_TITLE "server"
 
 typedef Vec<uchar, 1> Vec1b;
 
@@ -14,6 +14,9 @@ static int          width, height;
 static Mat          rgb, yv12;
 
 bool cam_open(int cam_id, bool _preview) {
+  //cap.set(CV_CAP_PROP_FRAME_WIDTH,  640);
+  //cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+
   bool ret = cap.open(cam_id);
 
   if (ret) {
