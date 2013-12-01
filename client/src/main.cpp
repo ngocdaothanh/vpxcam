@@ -5,6 +5,7 @@
 
 #include "client.h"
 #include "decode.h"
+#include "display.h"
 
 using boost::asio::ip::tcp;
 
@@ -34,6 +35,7 @@ int main(int argc, char* argv[]) {
 
   char yv12[rows * cols];
 
+  display_init(width, height);
   while (true) {
     tcp_read(buffer, 4);
     int frame_size = *((int*) buffer);
@@ -46,10 +48,9 @@ int main(int argc, char* argv[]) {
     tcp_read(buffer, frame_size);
     if (!vpx_decode(buffer, frame_size, yv12)) {
       printf("Could not decode frame, frame size: %d\n", frame_size);
-      //break;
     }
 
-    usleep(30 * 1000);
+    display_update(yv12);
   }
 
   vpx_cleanup();

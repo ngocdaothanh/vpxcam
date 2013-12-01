@@ -22,7 +22,7 @@ void cam_loop(int width, int height, server* s) {
     if (!size) continue;
 
     s->handle_encoded(encoded, size);
-    printf("%d", size);
+    printf("%d", size / 1024);
   }
 }
 
