@@ -78,3 +78,4 @@ References
 * http://docs.opencv.org/modules/highgui/doc/reading_and_writing_images_and_video.html#videocapture
 * http://www.webmproject.org/docs/vp8-sdk/samples.html
 * http://www.boost.org/doc/libs/1_53_0/doc/html/boost_asio/examples.html
+* http://www.fourcc.org/yuv.php
