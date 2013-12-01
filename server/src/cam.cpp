@@ -36,7 +36,7 @@ int cam_height() {
   return height;
 }
 
-bool cam_yv12_frame(unsigned char* ret) {
+bool cam_yv12_frame(char* ret) {
   if (preview) waitKey(30);
 
   cap.read(rgb);

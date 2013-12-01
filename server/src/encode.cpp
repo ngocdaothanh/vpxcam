@@ -8,13 +8,6 @@
 
 #include "encode.h"
 
-static void mem_put_le32(unsigned char *mem, unsigned int val) {
-  mem[0] = val;
-  mem[1] = val>>8;
-  mem[2] = val>>16;
-  mem[3] = val>>24;
-}
-
 static vpx_codec_ctx_t codec;
 static vpx_image_t     raw;
 static int             force_key_frame;
@@ -23,7 +16,7 @@ static int             frame_cnt = 0;
 bool vpx_init(int width, int height, int _force_key_frame) {
   force_key_frame = _force_key_frame;
 
-  vpx_codec_iface_t *interface = vpx_codec_vp8_cx();
+  vpx_codec_iface_t* interface = vpx_codec_vp8_cx();
   printf("Using %s\n", vpx_codec_iface_name(interface));
 
   if (!vpx_img_alloc(&raw, VPX_IMG_FMT_I420, width, height, 1)) {
@@ -53,13 +46,12 @@ bool vpx_init(int width, int height, int _force_key_frame) {
   return true;
 }
 
-void vpx_encode(unsigned char* yv12_frame, unsigned char** encoded, int* size) {
-  *encoded = NULL;
-  *size    = 0;
+void vpx_encode(const char* yv12_frame, char* encoded, int* size) {
+  *size = 0;
 
   int flags = (force_key_frame > 0 && frame_cnt % force_key_frame == 0) ? VPX_EFLAG_FORCE_KF : 0;
 
-  raw.planes[0] = yv12_frame;
+  raw.planes[0] = (unsigned char *) yv12_frame;
   if (vpx_codec_encode(&codec, &raw, frame_cnt, 1, flags, VPX_DL_REALTIME)) {
     printf("Failed to encode frame\n");
     return;
@@ -71,10 +63,8 @@ void vpx_encode(unsigned char* yv12_frame, unsigned char** encoded, int* size) {
     switch (pkt->kind) {
     case VPX_CODEC_CX_FRAME_PKT:
       if (!*size) {
-        *size    = 4 + pkt->data.frame.sz;
-        *encoded = (unsigned char*) malloc(*size);
-        mem_put_le32(*encoded, pkt->data.frame.sz);
-        memcpy(*encoded + 4, pkt->data.frame.buf, pkt->data.frame.sz);
+        *size = pkt->data.frame.sz;
+        memcpy(encoded, pkt->data.frame.buf, pkt->data.frame.sz);
       }
       break;
 

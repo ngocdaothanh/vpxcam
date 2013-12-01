@@ -1,3 +1,5 @@
+Video only, no audio:
+
 ::
 
   camera -> capture -> encode -> server ---> client -> decode -> display
@@ -24,7 +26,29 @@ Build and run
 
   make
 
+Network protocol
+----------------
+
+TCP is used.
+
+Client will receive:
+
+::
+
+  <width: int>
+  <height: int>
+
+  <size: int>
+  <encoded frame: bytes>
+
+  <size: int>
+  <encoded frame: bytes>
+
+  ...
+
 References
 ----------
 
-http://www.webmproject.org/docs/vp8-sdk/samples.html
+* http://docs.opencv.org/modules/highgui/doc/reading_and_writing_images_and_video.html#videocapture
+* http://www.webmproject.org/docs/vp8-sdk/samples.html
+* http://www.boost.org/doc/libs/1_53_0/doc/html/boost_asio/examples.html
