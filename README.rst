@@ -11,13 +11,21 @@ Dependencies
 * libvpx: Encode/decode frames; libvpx only works with YV12, not RGB
 * boost: Server and client
 
-On Mac:
+On Mac, if you use Homebrew:
 
 ::
 
   brew install opencv
   brew install libvpx
   brew install boost
+
+If you use MacPorts:
+
+::
+
+  sudo port install opencv
+  sudo port install libvpx
+  sudo port install boost
 
 Build and run
 -------------
