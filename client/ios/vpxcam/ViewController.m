@@ -1,6 +1,7 @@
 #include <libavcodec/avcodec.h>
 
 #import "ViewController.h"
+#import "GCDAsyncSocket.h"
 
 @interface ViewController ()
 
@@ -11,20 +12,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
     avcodec_register_all();
+    AVCodec* decoder = avcodec_find_decoder(AV_CODEC_ID_VP8);
 
-    unsigned int codec = AV_CODEC_ID_VP8;
-    
-    AVCodec* decoder = avcodec_find_decoder(codec);
-    
-    printf("%p\n", decoder);
-    
-    printf("%s\n", avcodec_get_name(codec));
-    
-    printf("%d\n", av_codec_is_encoder(decoder));
-    printf("%d\n", av_codec_is_decoder(decoder));
-
+    GCDAsyncSocket* socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
 - (void)didReceiveMemoryWarning

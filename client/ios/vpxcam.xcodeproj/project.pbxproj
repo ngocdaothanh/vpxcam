@@ -29,6 +29,7 @@
 		E26D0C70184C8C26001CA614 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D0C68184C8C26001CA614 /* libswresample.a */; };
 		E26D0C71184C8C26001CA614 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D0C69184C8C26001CA614 /* libswscale.a */; };
 		E26D0C73184C8E14001CA614 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D0C72184C8E14001CA614 /* libz.dylib */; };
+		E2CB8C82184CAE7300E8460D /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CB8C81184CAE7300E8460D /* GCDAsyncSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,8 @@
 		E26D0C68184C8C26001CA614 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
 		E26D0C69184C8C26001CA614 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
 		E26D0C72184C8E14001CA614 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		E2CB8C80184CAE7300E8460D /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		E2CB8C81184CAE7300E8460D /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +219,8 @@
 		E26D0BD6184C8A11001CA614 /* vpxcam */ = {
 			isa = PBXGroup;
 			children = (
+				E2CB8C80184CAE7300E8460D /* GCDAsyncSocket.h */,
+				E2CB8C81184CAE7300E8460D /* GCDAsyncSocket.m */,
 				E26D0BDF184C8A11001CA614 /* AppDelegate.h */,
 				E26D0BE0184C8A11001CA614 /* AppDelegate.m */,
 				E26D0BE2184C8A11001CA614 /* Main_iPhone.storyboard */,
@@ -513,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2CB8C82184CAE7300E8460D /* GCDAsyncSocket.m in Sources */,
 				E26D0BEA184C8A11001CA614 /* ViewController.m in Sources */,
 				E26D0BE1184C8A11001CA614 /* AppDelegate.m in Sources */,
 				E26D0BDD184C8A11001CA614 /* main.m in Sources */,
