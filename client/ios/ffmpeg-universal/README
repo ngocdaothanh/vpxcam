@@ -1,0 +1,20 @@
+See:
+https://www.dropbox.com/sh/sw4kcyo9b8kp8bp/LOONcTMLuh/ffmpeg-2.1.1-ios7
+
+Copy here the directories "include" and "lib" from the directory "universal".
+
+-------------------
+
+[http://stackoverflow.com/questions/19341770/ffmpeg-ios-7-library]
+
+Install gas-preprocessor
+
+Click on the ZIP icon to download https://github.com/mansr/gas-preprocessor.
+Copy gas-preprocessor.pl to /usr/bin directory. Change permission of
+gas-preprocessor.pl by setting the privilege to Read & Write for all.
+
+Download my shell script from: https://gist.github.com/m1entus/6983547
+
+Run sh build-ffmpeg.sh.
+
+-------------------
