@@ -43,7 +43,7 @@ int cam_height() {
 }
 
 bool cam_yv12_frame(char* ret) {
-  if (preview) waitKey(30);
+  if (preview) waitKey(1);
 
   cap.read(rgb);
   if (!rgb.data) return false;
@@ -56,11 +56,11 @@ bool cam_yv12_frame(char* ret) {
   int rows = yv12.rows;
   int cols = yv12.cols;
 
+  char* b = ret;
   for (int r = 0; r < rows; r++) {
     for (int c = 0; c < cols; c++) {
-      Vec1b bs  = yv12.at<Vec1b>(r, c);
-      int   idx = r * cols + c;
-      ret[idx] = bs[0];
+      *b = yv12.at<Vec1b>(r, c)[0];
+      b++;
     }
   }
 
