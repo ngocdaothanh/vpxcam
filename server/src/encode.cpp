@@ -55,23 +55,18 @@ void vpx_encode(const char* yv12_frame, char* encoded, int* size, bool force_key
   }
 
   vpx_codec_iter_t iter = NULL;
-  const vpx_codec_cx_pkt_t *pkt;
+  const vpx_codec_cx_pkt_t* pkt;
   while ((pkt = vpx_codec_get_cx_data(&codec, &iter))) {
-    switch (pkt->kind) {
-    case VPX_CODEC_CX_FRAME_PKT:
+    if (pkt->kind == VPX_CODEC_CX_FRAME_PKT) {
       if (!*size) {
         *size = pkt->data.frame.sz;
         memcpy(encoded, pkt->data.frame.buf, pkt->data.frame.sz);
       }
-      break;
 
-    default:
-      break;
+      bool key_frame = pkt->data.frame.flags & VPX_FRAME_IS_KEY;
+      printf(key_frame ? "K":".");
+      fflush(stdout);
     }
-
-    bool key_frame = pkt->kind == VPX_CODEC_CX_FRAME_PKT && (pkt->data.frame.flags & VPX_FRAME_IS_KEY);
-    printf(key_frame ? "K":".");
-    fflush(stdout);
   }
   frame_cnt++;
 }
