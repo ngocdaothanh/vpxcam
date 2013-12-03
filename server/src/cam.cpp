@@ -14,21 +14,24 @@ static int          width, height;
 static Mat          rgb, yv12;
 
 bool cam_open(int cam_id, bool _preview) {
-  //cap.set(CV_CAP_PROP_FRAME_WIDTH,  640);
-  //cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
-
-  bool ret = cap.open(cam_id);
-
-  if (ret) {
-    preview = _preview;
-    if (preview) namedWindow(PREVIEW_WINDOW_TITLE, 1);
-
-    width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-    height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-    printf("Camera %d: %d x %d\n", cam_id, width, height);
+  if (!cap.open(cam_id)) {
+    printf("Could not open camera %d", cam_id);
+    return false;
   }
 
-  return ret;
+  cap.set(CV_CAP_PROP_FRAME_WIDTH,  640);
+  cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+  cap.set(CV_CAP_PROP_FPS,          30);
+  cap.set(CV_CAP_PROP_CONVERT_RGB,  0);
+
+  preview = _preview;
+  if (preview) namedWindow(PREVIEW_WINDOW_TITLE, 1);
+
+  width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+  height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+  printf("Camera %d: %d x %d\n", cam_id, width, height);
+
+  return true;
 }
 
 int cam_width() {
