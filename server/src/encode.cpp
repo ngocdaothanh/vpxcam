@@ -8,11 +8,14 @@
 
 #include "encode.h"
 
+static int             frame_size;
 static vpx_codec_ctx_t codec;
 static vpx_image_t     raw;
 static int             frame_cnt = 0;
 
 bool vpx_init(int width, int height) {
+  frame_size = (int) (width * height * 1.5);
+
   vpx_codec_iface_t* interface = vpx_codec_vp8_cx();
   printf("Using %s\n", vpx_codec_iface_name(interface));
 
@@ -48,7 +51,9 @@ void vpx_encode(const char* yv12_frame, char* encoded, int* size, bool force_key
 
   int flags = force_key_frame ? VPX_EFLAG_FORCE_KF : 0;
 
-  raw.planes[0] = (unsigned char *) yv12_frame;
+  // This does not work correctly (only the 1st plane is encoded), why?
+  // raw.planes[0] = (unsigned char *) yv12_frame;
+  memcpy(raw.planes[0], yv12_frame, frame_size);
   if (vpx_codec_encode(&codec, &raw, frame_cnt, 1, flags, VPX_DL_REALTIME)) {
     printf("Failed to encode frame\n");
     return;
