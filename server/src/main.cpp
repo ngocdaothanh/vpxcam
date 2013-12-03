@@ -7,6 +7,9 @@
 #include "encode.h"
 #include "server.h"
 
+#define CAM_WIDTH  640
+#define CAM_HEIGHT 480
+
 void cam_loop(int width, int height, server* s) {
   int rows = (int) (height * 1.5);
   int cols = width;
@@ -36,13 +39,13 @@ int main(int argc, char* argv[]) {
   int cam_id = atoi(argv[1]);
   int port   = atoi(argv[2]);
 
-  if (!cam_open(cam_id, true)) {
+  int width  = CAM_WIDTH;
+  int height = CAM_HEIGHT;
+
+  if (!cam_open(cam_id, width, height, true)) {
     printf("Could not open camera: %d\n", cam_id);
     return -1;
   }
-
-  int width  = cam_width();
-  int height = cam_height();
 
   vpx_init(width, height);
 

@@ -10,36 +10,25 @@ typedef Vec<uchar, 1> Vec1b;
 
 static VideoCapture cap;
 static bool         preview;
-static int          width, height;
 static Mat          rgb, yv12;
 
-bool cam_open(int cam_id, bool _preview) {
+bool cam_open(int cam_id, int width, int height, bool _preview) {
   if (!cap.open(cam_id)) {
     printf("Could not open camera %d", cam_id);
     return false;
   }
 
-  cap.set(CV_CAP_PROP_FRAME_WIDTH,  640);
-  cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+  cap.set(CV_CAP_PROP_FRAME_WIDTH,  width);
+  cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
   cap.set(CV_CAP_PROP_FPS,          30);
   //cap.set(CV_CAP_PROP_CONVERT_RGB,  false);
 
   preview = _preview;
   if (preview) namedWindow(PREVIEW_WINDOW_TITLE, 1);
 
-  width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-  height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
   printf("Camera %d: %d x %d\n", cam_id, width, height);
 
   return true;
-}
-
-int cam_width() {
-  return width;
-}
-
-int cam_height() {
-  return height;
 }
 
 bool cam_yv12_frame(char* ret) {
