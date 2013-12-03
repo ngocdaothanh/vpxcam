@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   memcpy(&height, buffer + 4, 4);
   printf("Camera: %d x %d\n", width, height);
 
-  vpx_init(width, height);
+  vpx_init();
 
   int rows = (int) (height * 1.5);
   int cols = width;

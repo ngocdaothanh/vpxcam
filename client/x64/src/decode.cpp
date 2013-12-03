@@ -11,7 +11,7 @@
 
 static vpx_codec_ctx_t codec;
 
-bool vpx_init(int width, int height) {
+bool vpx_init() {
   vpx_codec_iface_t* interface = vpx_codec_vp8_dx();
 
   printf("Using %s\n", vpx_codec_iface_name(interface));
