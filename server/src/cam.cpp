@@ -22,7 +22,7 @@ bool cam_open(int cam_id, bool _preview) {
   cap.set(CV_CAP_PROP_FRAME_WIDTH,  640);
   cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
   cap.set(CV_CAP_PROP_FPS,          30);
-  cap.set(CV_CAP_PROP_CONVERT_RGB,  0);
+  //cap.set(CV_CAP_PROP_CONVERT_RGB,  false);
 
   preview = _preview;
   if (preview) namedWindow(PREVIEW_WINDOW_TITLE, 1);
@@ -48,9 +48,10 @@ bool cam_yv12_frame(char* ret) {
   cap.read(rgb);
   if (!rgb.data) return false;
 
-  if (preview) imshow(PREVIEW_WINDOW_TITLE, rgb);
-
   cvtColor(rgb, yv12, CV_RGB2YUV_YV12);
+
+  if (preview) imshow(PREVIEW_WINDOW_TITLE, rgb);
+  //if (preview) imshow(PREVIEW_WINDOW_TITLE, yv12);
 
   int rows = yv12.rows;
   int cols = yv12.cols;

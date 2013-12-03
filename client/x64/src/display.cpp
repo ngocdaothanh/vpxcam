@@ -12,9 +12,13 @@ static Mat* yv12;
 static Mat  rgb;
 
 static void bytes_to_mat(const char* bytes, Mat mat) {
-  for (int r = 0; r < mat.rows; r++) {
-    for (int c = 0; c < mat.cols; c++) {
-      uchar b = (uchar) bytes[r * mat.cols + c];
+  int rows = mat.rows;
+  int cols = mat.cols;
+
+  for (int r = 0; r < rows; r++) {
+    for (int c = 0; c < cols; c++) {
+      int   idx = r * cols + c;
+      uchar b   = (uchar) bytes[idx];
       Vec1b bs(b);
       mat.at<Vec1b>(r, c) = bs;
     }

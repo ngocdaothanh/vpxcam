@@ -29,7 +29,7 @@ bool vpx_init(int width, int height) {
 bool vpx_decode(const char* encoded, int frame_size, char* yv12_frame) {
   // Decode the frame
   if (vpx_codec_decode(&codec, (const unsigned char*) encoded, frame_size, NULL, 0)) {
-    printf("Failed to decode frame\n");
+    printf("Failed to decode frame (maybe a key frame has not been reached)\n");
     return false;
   }
 
